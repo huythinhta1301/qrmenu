@@ -5,30 +5,14 @@ import { FloatingCartButton } from "@/components/common/FloatingCartButton"
 import { useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
+import { Header } from "@/components/common/Header"
+import { Category, categories as initCategories } from "@/data/mock"
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-export interface Category {
-    id: number;
-    name: string;
-    image: string;
-  }
   
-  
-
-const categories: Category[] = [
-  { id: 1, name: 'Ramen', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 2, name: 'Sushi', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 3, name: 'Udon', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 4, name: 'Rice', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 5, name: 'Cate 5', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 6, name: 'Cate 6', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 7, name: 'Cate 7', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-  { id: 8, name: 'Cate 8', image: 'https://dashilabvn.com/wp-content/uploads/2021/05/SIZE-HINH-WEB-17.png' },
-]
-
 // Banner data
 const banners = [
   {
@@ -49,6 +33,8 @@ const banners = [
 ]
 
 export default function CategoriesPage() {
+  const [items, setItems] = useState<Category[]>(initCategories)
+
   const [cartQuantity, setCartQuantity] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('cartQuantity')
@@ -58,34 +44,9 @@ export default function CategoriesPage() {
   })
 
   return (
-    <main className="mx-auto min-h-screen pb-20 bg-black text-white max-w-md relative">
-      <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black z-10 border-b border-gray-800">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <img src="https://img.freepik.com/premium-vector/ramen-logo-design-vector-japanese-food_562967-76.jpg" alt="Logo" className="h-8" />
-          <div className="flex items-center gap-4">
-            <button className="p-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-            <button className="p-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </button>
-            <button className="p-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-            </button>
-            <button className="px-4 py-1 bg-white text-black rounded-full text-sm font-medium">
-              Thanh toán
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <div className="w-full pt-16">
+    <div>
+      <Header />
+      <div className="w-full">
         {/* Banner Section */}
         <div className="mb-4">
           <Swiper
@@ -121,7 +82,7 @@ export default function CategoriesPage() {
         {/* Categories Grid */}
         <div className="px-4">
           <div className="grid grid-cols-2 gap-3">
-            {categories.map((category) => (
+            {items.map((category) => (
               <CategoryCard 
                 key={category.id} 
                 category={category} 
@@ -132,6 +93,6 @@ export default function CategoriesPage() {
       </div>
 
       <CartButton quantity={cartQuantity} isPulsing={false} />
-    </main>
+      </div>
   )
 } 

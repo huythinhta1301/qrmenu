@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Category } from '@/app/categories/page'
+import { Category } from '@/data/mock'
 
 interface CategoryCardProps {
   category: Category;
